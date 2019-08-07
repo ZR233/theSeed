@@ -9,18 +9,10 @@ using namespace std;
 int main()
 {
 
-	auto w = world::World();
+	auto w = std::make_shared<world::World>();
 
-	auto s = w.getSpace();
+	w->init();
 
-
-
-	auto i = std::make_shared<world::item::Item>();
-	world::define::Location location(1,1,3);
-
-
-	s->addItem(location, i);
-
-	cout << "Hello CMake。" << endl;
+	w->run();
 	return 0;
 }
