@@ -8,14 +8,14 @@ namespace world {
 		public:
 			Location() = default;
 
-			Location(uint64_t x, uint64_t y, uint64_t z) {
+			Location(int64_t x, int64_t y, int64_t z) {
 				this->x = x;
 				this->y = y;
 				this->z = z;
 			}
-			uint64_t x = 0;
-			uint64_t y = 0;
-			uint64_t z = 0;
+			int64_t x = 0;
+			int64_t y = 0;
+			int64_t z = 0;
 		};
 	}
 }

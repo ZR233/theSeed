@@ -13,20 +13,23 @@ namespace world {
 		}
 
 
-		void Space::addItem(world::define::Location location, std::shared_ptr<world::item::Item> itemPtr)
+		void Space::addItem(std::shared_ptr<world::item::Item> itemPtr, world::define::Location location)
 		{
 			auto itemOrigin = getItemByLocation(location);
 			if (itemOrigin.expired()){
-				auto quadrant = getQuadrantBy(location);
-				quadrantSetItem(quadrant, location, itemPtr);
+				setItem(itemPtr, location);
 			}
 		}
-		void Space::setItem(world::define::Location location, std::shared_ptr<world::item::Item> itemPtr)
+		void Space::setItem(std::shared_ptr<world::item::Item> itemPtr, world::define::Location location)
 		{
-			auto quadrant = getQuadrantBy(location);
+			auto quadrant = std::weak_ptr<axisXYZ>(quadrant_);
 			quadrantSetItem(quadrant, location, itemPtr);
 		}
-
+		void Space::moveItem(std::shared_ptr<world::item::Item> itemPtr, world::define::Location location)
+		{
+			auto quadrant = std::weak_ptr<axisXYZ>(quadrant_);
+			quadrantSetItem(quadrant, location, itemPtr);
+		}
 
 
 
@@ -72,15 +75,7 @@ namespace world {
 				}
 			}
 
-		
-
-			//if (quadrant.find(location.x) == quadrant.end())
-			//	quadrant[location.x] = std::map<uint64_t, std::map<uint64_t, std::shared_ptr<world::item::Item>>>();
-
-			//if (quadrant[location.x].find(location.y) == quadrant[location.x].end())
-			//	quadrant[location.x][location.y] = std::map<uint64_t, std::shared_ptr<world::item::Item>>();
-
-			//quadrant[location.x][location.y][location.z] = itemPtr;
+	
 			itemPtr->location = location;
 			itemPtr->space_ = shared_from_this();
 			
@@ -88,10 +83,9 @@ namespace world {
 		std::weak_ptr<world::item::Item> Space::getItemByLocation(world::define::Location location)
 		{
 			std::weak_ptr<world::item::Item> itemPtr;
-			auto quadrantPtr = getQuadrantBy(location);
+			std::weak_ptr<axisXYZ> quadrantPtr(quadrant_);
 			if (!quadrantPtr.expired())
 			{
-				//it is getting valid shared_ptr obj now;
 				auto xyz = quadrantPtr.lock();
 				try
 				{
@@ -106,7 +100,7 @@ namespace world {
 		
 		}
 
-		std::weak_ptr<axisXYZ> Space::getQuadrantBy(world::define::Location location) {
+		/*std::weak_ptr<axisXYZ> Space::getQuadrantBy(world::define::Location &location) {
 			if (location.x >= 0
 				&& location.y >= 0
 				&& location.z >= 0) {
@@ -118,6 +112,7 @@ namespace world {
 				&& location.z > 0
 				)
 			{
+				location.x = -location.x;
 				return std::weak_ptr<axisXYZ>(quadrant2_);
 			}
 			else if (
@@ -126,6 +121,9 @@ namespace world {
 				&& location.z > 0
 				)
 			{
+				location.x = -location.x;
+				location.y = -location.y;
+
 				return std::weak_ptr<axisXYZ>(quadrant3_);
 			}
 			else if (
@@ -134,6 +132,7 @@ namespace world {
 				&& location.z > 0
 				)
 			{
+				location.y = -location.y;
 				return std::weak_ptr<axisXYZ>(quadrant4_);
 			}
 			else if (
@@ -142,6 +141,7 @@ namespace world {
 				&& location.z < 0
 				)
 			{
+				location.z = -location.z;
 				return std::weak_ptr<axisXYZ>(quadrant5_);
 			}
 			else if (
@@ -150,6 +150,8 @@ namespace world {
 				&& location.z < 0
 				)
 			{
+				location.x = -location.x;
+				location.z = -location.z;
 				return std::weak_ptr<axisXYZ>(quadrant6_);
 			}
 			else if (
@@ -158,6 +160,9 @@ namespace world {
 				&& location.z < 0
 				)
 			{
+				location.x = -location.x;
+				location.y = -location.y;
+				location.z = -location.z;
 				return std::weak_ptr<axisXYZ>(quadrant7_);
 			}
 			else if (
@@ -166,12 +171,14 @@ namespace world {
 				&& location.z < 0
 				)
 			{
+				location.y = -location.y;
+				location.z = -location.z;
 				return std::weak_ptr<axisXYZ>(quadrant8_);
 			}
 			else {
 				throw std::exception();
 			}
-		}
+		}*/
 	}
 }
 

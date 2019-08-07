@@ -19,17 +19,27 @@ namespace world {
 	}
 
 	void World::init() {
-
+		auto item0 = std::make_shared<world::item::Item>();
 		auto item1 = std::make_shared<world::item::Stone>();
 		auto item2 = std::make_shared<world::item::Item>();
 		auto item3 = std::make_shared<world::item::Item>();
-		
+		auto item4 = std::make_shared<world::item::Item>();
+		auto item5 = std::make_shared<world::item::Item>();
+		auto item6 = std::make_shared<world::item::Item>();
+		auto item7 = std::make_shared<world::item::Item>();
+		auto item8 = std::make_shared<world::item::Item>();
 
 
-		space_->addItem(world::define::Location(0,0,0), item1);
-		
-		space_->addItem(world::define::Location(1,1,1), item2);
-		space_->addItem(world::define::Location(0, 0, 0), item3);
+
+		space_->addItem(item0, world::define::Location(0, 0, 0));
+		space_->addItem(item1, world::define::Location(1, 1, 1));
+		space_->addItem(item2, world::define::Location(-1, 1, 1));
+		space_->addItem(item3, world::define::Location(-1, -1, 1));
+		space_->addItem(item4, world::define::Location(1, -1, 1));
+		space_->addItem(item5, world::define::Location(1, 1, -1));
+		space_->addItem(item6, world::define::Location(-1, 1, -1));
+		space_->addItem(item7, world::define::Location(-1, -1, -1));
+		space_->addItem(item8, world::define::Location(1, -1, -1));
 	}
 
 
