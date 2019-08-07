@@ -10,9 +10,14 @@ int main()
 {
 
 	auto w = std::make_shared<world::World>();
-
 	w->init();
-
 	w->run();
+
+
+
+
+
+
+
 	return 0;
 }

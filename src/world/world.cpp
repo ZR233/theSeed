@@ -1,5 +1,5 @@
 #include "world.h"
-#include "world.h"
+#include "item/stone.h"
 #include <thread>
 
 
@@ -20,6 +20,16 @@ namespace world {
 
 	void World::init() {
 
+		auto item1 = std::make_shared<world::item::Stone>();
+		auto item2 = std::make_shared<world::item::Item>();
+		auto item3 = std::make_shared<world::item::Item>();
+		
+
+
+		space_->addItem(world::define::Location(0,0,0), item1);
+		
+		space_->addItem(world::define::Location(1,1,1), item2);
+		space_->addItem(world::define::Location(0, 0, 0), item3);
 	}
 
 
